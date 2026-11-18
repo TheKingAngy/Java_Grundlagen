@@ -120,13 +120,16 @@ public class Main {
             case 11:
                 System.out.println("That month have 30 days");
                 break;
-            default:
+            case 2:
                 System.out.println("That month have 28 days");
+            default:
+               System.out.println("This is not a month");
         }
         switch (monthNumber) {
             case 1, 3, 5, 7, 8, 10, 12 -> System.out.println("That month have 31 days");
             case 4, 6, 9, 11 -> System.out.println("That month have 30 days");
-            default -> System.out.println("That month have 28 days");
+            case 2 -> System.out.println("That month have 28 days");
+            default -> System.out.println("This is not a month");
         }
         ;
 
@@ -291,34 +294,46 @@ public class Main {
         // 06.   Solve this exercise with whatever switch you feel more comfortable (new or old)
         //      Write a small calculator. A user types in two numbers and an operation ('addition', 'subtraction', 'division', 'multiplication').
         //      Calculate the correct answer and print it out.
-        //      Print a warning when the user tries to divide by 0 (Example: 2/0 -> number two must not be 0!
+        //      Print a warning when the user tries to divide by 0 (Example: 2/0 -> number two must not be 0
         Scanner calculator = new Scanner(System.in);
 
-        System.out.println("Enter the first number: ");
-        int numberOne = calculator.nextInt();
+                System.out.println("Enter the first number: ");
+                int numberOne = calculator.nextInt();
 
-        System.out.println("Enter the second number:  ");
-        int numberTwo = calculator.nextInt();
+                System.out.println("Enter the second number: ");
+                int numberTwo = calculator.nextInt();
+                calculator.nextLine();
 
-        System.out.println("Enter an operation (+, -, *, /");
-        String operation = calculator.nextLine();
+                System.out.println("Enter an operation (+, -, *, / or addition, subtraction, division, multiplication): ");
+                String operation = calculator.nextLine().trim();
 
-        if (operation.equals("/") && numberTwo == 0) {
-            System.out.println("Warning: number two must not be 0");
-        } else {
-            int end = switch (operation) {
-                case "+ (additon)" -> numberOne + numberTwo;
-                case "- (subtraction)" -> numberOne - numberTwo;
-                case "* (multiplication)" -> numberOne * numberTwo;
-                case "/ (division)" -> numberOne / numberTwo;
-                default ->  System.out.println("invalid operation");
-            };
+
+                if (operation.equals("/") && numberTwo == 0) {
+                    System.out.println("Warning: number two must not be 0!");
+                    return;
+                }
+
+                // Using a modern Java switch expression
+                double calculation = switch (operation) {
+                    case "+", "addition" -> numberOne + numberTwo;
+                    case "-", "subtraction" -> numberOne - numberTwo;
+                    case "*", "multiplication" -> numberOne * numberTwo;
+                    case "/", "division" -> (double) numberOne / numberTwo;
+                    default -> {
+                        System.out.println("Error: Invalid operation!");
+                        yield 0.0;
+                    }
+                };
+
+                System.out.println("Result: " + result);
+                calculator.close();
+            }
+        }
+
+
+
+            ;
 
 
             //--------------------------------------------------------------------------------------------------------------
-            System.out.println("Optional exercises");
-            // 01.  Try to come up with a program on your own and the tools you
-            //    know so far. Try to implement user input.
-        }
-    }
-}
+
